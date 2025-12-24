@@ -8,73 +8,54 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
         :root {
-            --primary-color: #1a237e; /* Azul oscuro corporativo */
-            --accent-color: #ffca28; /* Amarillo/Dorado contraste */
+            /* COLORES IDENTICOS AL BANNER */
+            --primary-color: #003366; /* Azul marino del encabezado */
+            --secondary-color: #00aae4; /* Azul cyan del logo UNIDES */
+            --accent-color: #fdd835; /* Amarillo de la calculadora */
             --text-color: #333;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            /* Fondo azul cielo suave igual al banner */
+            --bg-color: #dcedf6; 
+            --glass-bg: rgba(255, 255, 255, 0.90);
         }
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-gradient);
+            background-color: var(--bg-color);
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            overflow: hidden; /* Evita doble barra de scroll */
         }
 
-        /* Contenedor principal estilo diapositiva 16:9 */
+        /* Contenedor que ocupa TODO el espacio del iframe */
         .slide-container {
             width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            height: 100vh; /* Ocupa el 100% de la altura disponible */
             display: flex;
-            overflow: hidden;
             position: relative;
-        }
-
-        /* Capa oscura para legibilidad del fondo */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(26, 35, 126, 0.85); /* Tinte azul */
-            z-index: 1;
+            background-color: var(--bg-color);
         }
 
         /* Menú Lateral */
         .sidebar {
-            position: relative;
-            z-index: 2;
-            width: 30%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 40px;
+            width: 250px; /* Ancho fijo para el menú */
+            background: linear-gradient(180deg, var(--primary-color) 0%, #002244 100%);
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
         .logo {
-            color: #fff;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 40px;
             border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            display: inline-block;
+            padding-bottom: 15px;
+            line-height: 1.2;
         }
 
         .menu-btn {
@@ -82,11 +63,11 @@
             border: none;
             color: rgba(255,255,255,0.7);
             text-align: left;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            font-size: 16px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            font-size: 15px;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 8px;
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
             display: flex;
@@ -96,124 +77,115 @@
         .menu-btn:hover {
             background: rgba(255,255,255,0.1);
             color: #fff;
-            transform: translateX(10px);
+            padding-left: 20px; /* Pequeña animación al pasar el mouse */
         }
 
         .menu-btn.active {
-            background: var(--accent-color);
-            color: var(--primary-color);
+            background: var(--secondary-color);
+            color: white;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateX(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .menu-btn span {
             margin-right: 10px;
             font-weight: bold;
             font-size: 18px;
+            opacity: 0.8;
         }
 
         /* Área de Contenido */
         .content-area {
+            flex-grow: 1; /* Ocupa todo el espacio restante */
+            padding: 40px;
             position: relative;
-            z-index: 2;
-            width: 70%;
-            padding: 40px 60px;
-            display: flex;
-            align-items: center;
+            overflow-y: auto; /* Scroll solo en el contenido si es necesario */
+            background-image: radial-gradient(circle at top right, rgba(255,255,255,0.8), transparent);
         }
 
         .card {
             background: var(--glass-bg);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 100%;
-            height: 80%;
-            overflow-y: auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-            display: none; /* Oculto por defecto */
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            max-width: 900px; /* Evita que el texto se estire demasiado en pantallas gigantes */
+            margin: 0 auto;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card.active-card {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .card h2 {
             color: var(--primary-color);
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
         }
 
         .card p {
-            color: #555;
-            line-height: 1.6;
+            color: #444;
+            line-height: 1.7;
             font-size: 15px;
             margin-bottom: 15px;
         }
 
         .highlight-box {
-            background: #e8eaf6;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin: 20px 0;
+            background: #fffde7; /* Fondo amarillo muy pálido */
+            border-left: 5px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 25px 0;
             border-radius: 0 10px 10px 0;
         }
 
         .highlight-box strong {
-            color: var(--primary-color);
+            color: #f9a825; /* Texto ocre para contraste */
         }
 
-        ul {
+        ul, ol {
             padding-left: 20px;
             color: #555;
         }
         
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        /* Scrollbar personalizado */
-        .card::-webkit-scrollbar {
-            width: 8px;
-        }
-        .card::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-            border-radius: 4px;
-        }
-        .card::-webkit-scrollbar-thumb {
-            background: #ccc; 
-            border-radius: 4px;
-        }
-
-        /* Responsive para móviles */
-        @media (max-width: 768px) {
+        /* Responsive para celular */
+        @media (max-width: 700px) {
             .slide-container {
                 flex-direction: column;
-                aspect-ratio: auto;
-                height: 100vh;
-                border-radius: 0;
+                height: auto;
+                min-height: 100vh;
             }
             .sidebar {
                 width: 100%;
-                padding: 20px;
+                padding: 15px;
                 flex-direction: row;
-                overflow-x: auto;
-            }
-            .content-area {
-                width: 100%;
-                padding: 20px;
+                overflow-x: auto; /* Scroll horizontal para los botones */
+                box-sizing: border-box;
             }
             .menu-btn {
                 white-space: nowrap;
                 margin-right: 10px;
                 margin-bottom: 0;
+                font-size: 14px;
+            }
+            .content-area {
+                padding: 20px;
+            }
+            .card {
+                padding: 20px;
             }
         }
     </style>
@@ -221,11 +193,8 @@
 <body>
 
     <div class="slide-container">
-        <div class="overlay"></div>
-
-        <!-- Barra Lateral de Navegación -->
         <div class="sidebar">
-            <div class="logo">Fundamentos de<br>Contabilidad</div>
+            <div class="logo">CONTENIDO<br>TEMÁTICO</div>
             
             <button class="menu-btn active" onclick="openTab(event, 'tema1')">
                 <span>01</span> Introducción
@@ -241,74 +210,55 @@
             </button>
         </div>
 
-        <!-- Área de Contenido -->
         <div class="content-area">
 
-            <!-- TEMA 1: INTRODUCCIÓN -->
             <div id="tema1" class="card active-card">
                 <h2>1. Introducción a la Contabilidad</h2>
                 <div class="highlight-box">
-                    <strong>Definición:</strong> La contabilidad no es solo registrar números.
+                    <strong>Definición:</strong>La contabilidad no es solo registrar números.
                 </div>
-                <p> Es una herramienta de control y lenguaje de los negocios.</p>
-                <h3>Normas de la Información financiera:</h3>
+                <p>Es una herramienta de control y lenguaje de los negocios.</p>
+                <h3>Normas de la Información Financiera:</h3>
                 <ul>
-                    <li><strong>Internos:</strong> Administradores, Dueños, Empleados (toma de decisiones operativas).</li>
+                    <li><strong>Internos:</strong> Administradores, Dueños, Empleados.</li>
                     <li><strong>Externos:</strong> Fisco (SAT), Bancos, Proveedores, Inversionistas.</li>
                 </ul>
-                <p><strong>Marco Legal:</strong> Obligatoriedad basada en el Código de Comercio, Ley de ISR, CFF y las Normas de Información Financiera (NIF).</p>
             </div>
 
-            <!-- TEMA 2: CICLO CONTABLE -->
             <div id="tema2" class="card">
                 <h2>2. El Ciclo Contable</h2>
-                <p>Es el conjunto de pasos que se repiten en cada periodo contable (ejercicio) para garantizar que la información financiera sea veraz y oportuna.</p>
-                
-                <h3>Fases del Ciclo:</h3>
+                <p>Pasos que se repiten en cada periodo para garantizar información veraz.</p>
                 <ol>
-                    <li><strong>Apertura:</strong> Balance inicial al comenzar el ejercicio.</li>
-                    <li><strong>Registro (Diario):</strong> Anotación cronológica de todas las operaciones (Compras, Ventas, Gastos).</li>
-                    <li><strong>Clasificación (Mayor):</strong> Pase de movimientos a las cuentas individuales (Esquemas de Mayor).</li>
-                    <li><strong>Balanza de Comprobación:</strong> Verificación de que la suma de cargos sea igual a la de abonos.</li>
-                    <li><strong>Estados Financieros:</strong> Producto final para la toma de decisiones.</li>
+                    <li><strong>Apertura:</strong> Balance inicial.</li>
+                    <li><strong>Registro:</strong> Diario y Mayor.</li>
+                    <li><strong>Balanza de Comprobación:</strong> Verificación de sumas.</li>
+                    <li><strong>Estados Financieros:</strong> Producto final.</li>
                 </ol>
             </div>
 
-            <!-- TEMA 3: ESTADOS FINANCIEROS -->
             <div id="tema3" class="card">
                 <h2>3. Los Estados Financieros</h2>
-                <p>Son la manifestación fundamental de la información financiera. Su objetivo es ser útil al usuario general en la toma de decisiones económicas.</p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px;">
-                        <h4 style="margin-top:0; color: var(--primary-color);">Balance General</h4>
-                        <p style="font-size: 13px;">(Estático) Muestra la situación financiera a una fecha determinada.<br><strong>Fórmula:</strong> Activo = Pasivo + Capital.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--primary-color);">
+                        <h4 style="margin:0 0 10px 0; color: var(--primary-color);">Balance General</h4>
+                        <p style="font-size: 13px; margin:0;">Activo = Pasivo + Capital</p>
                     </div>
-                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px;">
-                        <h4 style="margin-top:0; color: var(--primary-color);">Estado de Resultados</h4>
-                        <p style="font-size: 13px;">(Dinámico) Muestra la utilidad o pérdida en un periodo.<br><strong>Fórmula:</strong> Ingresos - Gastos = Utilidad.</p>
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-top: 4px solid var(--secondary-color);">
+                        <h4 style="margin:0 0 10px 0; color: var(--primary-color);">Estado de Resultados</h4>
+                        <p style="font-size: 13px; margin:0;">Ingresos - Gastos = Utilidad</p>
                     </div>
                 </div>
-                <p style="margin-top: 15px;">También existen el <em>Estado de Flujos de Efectivo</em> y el <em>Estado de Cambios en el Patrimonio</em>.</p>
             </div>
 
-            <!-- TEMA 4: ESTUDIO DE LAS CUENTAS -->
             <div id="tema4" class="card">
                 <h2>4. Estudio de las Cuentas</h2>
-                <p>La cuenta es el instrumento donde se registran de forma clara y ordenada los aumentos y disminuciones del activo, pasivo y capital.</p>
-                
-                <h3>Teoría de la Partida Doble:</h3>
+                <p>Instrumento de registro de aumentos y disminuciones.</p>
                 <div class="highlight-box">
-                    "A todo cargo corresponde un abono". No hay deudor sin acreedor.
+                    <strong>Partida Doble:</strong> "A todo cargo corresponde un abono".
                 </div>
-
-                <h3>Naturaleza de las Cuentas:</h3>
                 <ul>
-                    <li><strong>Activos:</strong> Naturaleza Deudora (Empiezan cargando, aumentan cargando).</li>
-                    <li><strong>Pasivos:</strong> Naturaleza Acreedora (Empiezan abonando, aumentan abonando).</li>
-                    <li><strong>Capital:</strong> Naturaleza Acreedora.</li>
-                    <li><strong>Resultados (Gastos):</strong> Deudora.</li>
-                    <li><strong>Resultados (Ingresos):</strong> Acreedora.</li>
+                    <li><strong>Activos:</strong> Naturaleza Deudora.</li>
+                    <li><strong>Pasivos y Capital:</strong> Naturaleza Acreedora.</li>
                 </ul>
             </div>
 
@@ -317,20 +267,15 @@
 
     <script>
         function openTab(evt, topicId) {
-            // 1. Ocultar todos los contenidos
             var i, cards, menuBtns;
             cards = document.getElementsByClassName("card");
             for (i = 0; i < cards.length; i++) {
                 cards[i].className = cards[i].className.replace(" active-card", "");
             }
-
-            // 2. Desactivar todos los botones
             menuBtns = document.getElementsByClassName("menu-btn");
             for (i = 0; i < menuBtns.length; i++) {
                 menuBtns[i].className = menuBtns[i].className.replace(" active", "");
             }
-
-            // 3. Mostrar el contenido actual y activar el botón actual
             document.getElementById(topicId).className += " active-card";
             evt.currentTarget.className += " active";
         }
