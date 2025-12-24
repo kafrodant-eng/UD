@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentos de Contabilidad</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #1a237e; /* Azul oscuro corporativo */
+            --accent-color: #ffca28; /* Amarillo/Dorado contraste */
+            --text-color: #333;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Contenedor principal estilo diapositiva 16:9 */
+        .slide-container {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Capa oscura para legibilidad del fondo */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 35, 126, 0.85); /* Tinte azul */
+            z-index: 1;
+        }
+
+        /* Menú Lateral */
+        .sidebar {
+            position: relative;
+            z-index: 2;
+            width: 30%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .menu-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            text-align: left;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            transform: translateX(10px);
+        }
+
+        .menu-btn.active {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateX(10px);
+        }
+
+        .menu-btn span {
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Área de Contenido */
+        .content-area {
+            position: relative;
+            z-index: 2;
+            width: 70%;
+            padding: 40px 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            height: 80%;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            display: none; /* Oculto por defecto */
+        }
+
+        .card.active-card {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: #e8eaf6;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--primary-color);
+        }
+
+        ul {
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Scrollbar personalizado */
+        .card::-webkit-scrollbar {
+            width: 8px;
+        }
+        .card::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .card::-webkit-scrollbar-thumb {
+            background: #ccc; 
+            border-radius: 4px;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .slide-container {
+                flex-direction: column;
+                aspect-ratio: auto;
+                height: 100vh;
+                border-radius: 0;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 20px;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+            .content-area {
+                width: 100%;
+                padding: 20px;
+            }
+            .menu-btn {
+                white-space: nowrap;
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <div class="overlay"></div>
+
+        <!-- Barra Lateral de Navegación -->
+        <div class="sidebar">
+            <div class="logo">Fundamentos de<br>Contabilidad</div>
+            
+            <button class="menu-btn active" onclick="openTab(event, 'tema1')">
+                <span>01</span> Introducción
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tema2')">
+                <span>02</span> Ciclo Contable
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tema3')">
+                <span>03</span> Estados Financieros
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tema4')">
+                <span>04</span> Cuentas
+            </button>
+        </div>
+
+        <!-- Área de Contenido -->
+        <div class="content-area">
+
+            <!-- TEMA 1: INTRODUCCIÓN -->
+            <div id="tema1" class="card active-card">
+                <h2>1. Introducción a la Contabilidad</h2>
+                <div class="highlight-box">
+                    <strong>Definición:</strong> La contabilidad no es solo registrar números.
+                </div>
+                <p> Es una herramienta de control y lenguaje de los negocios.</p>
+                <h3>Normas de la Información financiera:</h3>
+                <ul>
+                    <li><strong>Internos:</strong> Administradores, Dueños, Empleados (toma de decisiones operativas).</li>
+                    <li><strong>Externos:</strong> Fisco (SAT), Bancos, Proveedores, Inversionistas.</li>
+                </ul>
+                <p><strong>Marco Legal:</strong> Obligatoriedad basada en el Código de Comercio, Ley de ISR, CFF y las Normas de Información Financiera (NIF).</p>
+            </div>
+
+            <!-- TEMA 2: CICLO CONTABLE -->
+            <div id="tema2" class="card">
+                <h2>2. El Ciclo Contable</h2>
+                <p>Es el conjunto de pasos que se repiten en cada periodo contable (ejercicio) para garantizar que la información financiera sea veraz y oportuna.</p>
+                
+                <h3>Fases del Ciclo:</h3>
+                <ol>
+                    <li><strong>Apertura:</strong> Balance inicial al comenzar el ejercicio.</li>
+                    <li><strong>Registro (Diario):</strong> Anotación cronológica de todas las operaciones (Compras, Ventas, Gastos).</li>
+                    <li><strong>Clasificación (Mayor):</strong> Pase de movimientos a las cuentas individuales (Esquemas de Mayor).</li>
+                    <li><strong>Balanza de Comprobación:</strong> Verificación de que la suma de cargos sea igual a la de abonos.</li>
+                    <li><strong>Estados Financieros:</strong> Producto final para la toma de decisiones.</li>
+                </ol>
+            </div>
+
+            <!-- TEMA 3: ESTADOS FINANCIEROS -->
+            <div id="tema3" class="card">
+                <h2>3. Los Estados Financieros</h2>
+                <p>Son la manifestación fundamental de la información financiera. Su objetivo es ser útil al usuario general en la toma de decisiones económicas.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px;">
+                        <h4 style="margin-top:0; color: var(--primary-color);">Balance General</h4>
+                        <p style="font-size: 13px;">(Estático) Muestra la situación financiera a una fecha determinada.<br><strong>Fórmula:</strong> Activo = Pasivo + Capital.</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px;">
+                        <h4 style="margin-top:0; color: var(--primary-color);">Estado de Resultados</h4>
+                        <p style="font-size: 13px;">(Dinámico) Muestra la utilidad o pérdida en un periodo.<br><strong>Fórmula:</strong> Ingresos - Gastos = Utilidad.</p>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;">También existen el <em>Estado de Flujos de Efectivo</em> y el <em>Estado de Cambios en el Patrimonio</em>.</p>
+            </div>
+
+            <!-- TEMA 4: ESTUDIO DE LAS CUENTAS -->
+            <div id="tema4" class="card">
+                <h2>4. Estudio de las Cuentas</h2>
+                <p>La cuenta es el instrumento donde se registran de forma clara y ordenada los aumentos y disminuciones del activo, pasivo y capital.</p>
+                
+                <h3>Teoría de la Partida Doble:</h3>
+                <div class="highlight-box">
+                    "A todo cargo corresponde un abono". No hay deudor sin acreedor.
+                </div>
+
+                <h3>Naturaleza de las Cuentas:</h3>
+                <ul>
+                    <li><strong>Activos:</strong> Naturaleza Deudora (Empiezan cargando, aumentan cargando).</li>
+                    <li><strong>Pasivos:</strong> Naturaleza Acreedora (Empiezan abonando, aumentan abonando).</li>
+                    <li><strong>Capital:</strong> Naturaleza Acreedora.</li>
+                    <li><strong>Resultados (Gastos):</strong> Deudora.</li>
+                    <li><strong>Resultados (Ingresos):</strong> Acreedora.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, topicId) {
+            // 1. Ocultar todos los contenidos
+            var i, cards, menuBtns;
+            cards = document.getElementsByClassName("card");
+            for (i = 0; i < cards.length; i++) {
+                cards[i].className = cards[i].className.replace(" active-card", "");
+            }
+
+            // 2. Desactivar todos los botones
+            menuBtns = document.getElementsByClassName("menu-btn");
+            for (i = 0; i < menuBtns.length; i++) {
+                menuBtns[i].className = menuBtns[i].className.replace(" active", "");
+            }
+
+            // 3. Mostrar el contenido actual y activar el botón actual
+            document.getElementById(topicId).className += " active-card";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>
