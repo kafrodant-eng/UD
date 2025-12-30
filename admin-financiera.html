@@ -8,266 +8,264 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
         :root {
-            /* COLORES UNIDES (Idénticos al banner de Contabilidad) */
-            --primary: #003366;      /* Azul Marino Oscuro */
-            --secondary: #00aae4;    /* Azul Cian Brillante */
-            --accent: #fdd835;       /* Amarillo/Dorado */
-            --bg-color: #eef5f9;     /* Fondo azul muy pálido */
+            /* TUS COLORES CORPORATIVOS */
+            --primary: #003366;      /* Azul Marino */
+            --secondary: #00aae4;    /* Azul Cian */
+            --accent: #fdd835;       /* Amarillo */
+            --bg-body: #eef2f5;
             --text-dark: #333;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-body);
             margin: 0;
-            padding: 20px; /* Margen para que no se pegue al borde del iframe */
-            color: var(--text-dark);
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Contenedor Principal */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        /* Marco principal tipo diapositiva */
+        .slide-card {
+            width: 95%;
+            max-width: 1000px;
+            height: 600px; /* Altura fija para simular diapositiva */
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            border-top: 6px solid var(--secondary); /* Detalle de color superior */
-        }
-
-        /* Encabezado */
-        .header {
-            background: var(--primary);
-            padding: 40px 30px;
-            color: white;
+            display: flex;
+            flex-direction: column;
             position: relative;
-            background-image: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 100%);
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .header h2 {
-            margin: 10px 0 0 0;
-            font-size: 16px;
-            font-weight: 300;
-            opacity: 0.9;
-            color: var(--accent); /* Subtítulo en amarillo */
-        }
-
-        /* Estilos del Acordeón */
-        .accordion-section {
-            border-bottom: 1px solid #eee;
-        }
-
-        .accordion-section:last-child {
-            border-bottom: none;
-        }
-
-        .accordion-btn {
-            width: 100%;
-            background: white;
-            border: none;
-            padding: 25px 30px;
-            text-align: left;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--primary);
-            cursor: pointer;
+        /* ENCABEZADO SUPERIOR */
+        .header-bar {
+            background: var(--primary);
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .accordion-btn:hover {
-            background-color: #f8fbff;
-            color: var(--secondary);
-        }
-
-        .accordion-btn.active {
-            background-color: var(--primary);
             color: white;
+            border-bottom: 5px solid var(--secondary);
         }
 
-        /* Icono (+ / -) */
-        .icon {
+        .header-title h1 {
+            margin: 0;
             font-size: 24px;
-            font-weight: 300;
-            color: var(--secondary);
-            transition: transform 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        .accordion-btn.active .icon {
+        
+        .header-title p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.8;
             color: var(--accent);
-            transform: rotate(45deg); /* Efecto de girar cruz */
         }
 
-        /* Contenido Desplegable */
-        .panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: white;
+        /* BARRA DE PESTAÑAS (MENÚ SUPERIOR) */
+        .tabs-container {
+            background: #f8f9fa;
+            display: flex;
+            padding: 0 20px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .panel-content {
-            padding: 0 30px 30px 30px;
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 15px 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--secondary);
+            background: rgba(0, 170, 228, 0.05);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 4px solid var(--primary);
+            background: white;
+        }
+
+        /* ÁREA DE CONTENIDO */
+        .content-area {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        p {
             line-height: 1.6;
             color: #555;
         }
 
-        /* Elementos internos del texto */
-        h3 {
-            color: var(--secondary);
-            font-size: 1.1rem;
-            margin-top: 10px;
-            margin-bottom: 5px;
+        ul {
+            padding-left: 20px;
+            line-height: 1.6;
+            color: #555;
         }
 
         .highlight-box {
-            background-color: #fffde7; /* Fondo amarillo muy suave */
-            border-left: 4px solid var(--accent);
+            background: #fffde7;
+            border-left: 5px solid var(--accent);
             padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-            font-size: 0.95rem;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.95em;
         }
 
-        ul {
-            padding-left: 20px;
-            margin-top: 5px;
-        }
-        
-        li {
-            margin-bottom: 5px;
-        }
-
+        /* Scrollbar bonito */
+        .content-area::-webkit-scrollbar { width: 8px; }
+        .content-area::-webkit-scrollbar-track { background: #f1f1f1; }
+        .content-area::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>Administración Financiera</h1>
-            <h2>Conceptos clave y toma de decisiones</h2>
-        </div>
-
-        <div class="accordion-section">
-            <button class="accordion-btn">
-                1. Panorama General
-                <span class="icon">+</span>
-            </button>
-            <div class="panel">
-                <div class="panel-content">
-                    <p>La administración financiera se encarga de la obtención y aplicación razonable de los recursos de una empresa.</p>
-                    <div class="highlight-box">
-                        <strong>Objetivo principal:</strong> Maximizar el valor de la empresa y la riqueza de los accionistas (no solo generar utilidades).
-                    </div>
-                    <h3>Funciones Clave:</h3>
-                    <ul>
-                        <li><strong>Decisiones de Inversión:</strong> ¿En qué activos debemos invertir?</li>
-                        <li><strong>Decisiones de Financiamiento:</strong> ¿Cómo obtenemos los fondos (Deuda vs. Capital)?</li>
-                    </ul>
-                </div>
+    <div class="slide-card">
+        <div class="header-bar">
+            <div class="header-title">
+                <h1>Administración Financiera</h1>
+                <p>Análisis, Planeación y Control de Recursos</p>
             </div>
+            <div style="font-size: 30px; color: var(--accent);">📊</div>
         </div>
 
-        <div class="accordion-section">
-            <button class="accordion-btn">
-                2. Análisis de Estados Financieros
-                <span class="icon">+</span>
-            </button>
-            <div class="panel">
-                <div class="panel-content">
-                    <p>Es el proceso de evaluar la posición financiera presente y pasada de la empresa para establecer estimaciones sobre su futuro.</p>
-                    <h3>Métodos de Análisis:</h3>
-                    <ul>
-                        <li><strong>Vertical:</strong> Porcientos integrales (Estructura en un momento dado).</li>
-                        <li><strong>Horizontal:</strong> Tendencias (Comparación entre años).</li>
-                        <li><strong>Razones Financieras:</strong> Índices de Liquidez, Actividad, Endeudamiento y Rentabilidad.</li>
-                    </ul>
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab(event, 'tema1')">1. Panorama General</button>
+            <button class="tab-btn" onclick="openTab(event, 'tema2')">2. Análisis Financiero</button>
+            <button class="tab-btn" onclick="openTab(event, 'tema3')">3. Capital de Trabajo</button>
+            <button class="tab-btn" onclick="openTab(event, 'tema4')">4. Planeación</button>
+        </div>
+
+        <div class="content-area">
+            
+            <div id="tema1" class="tab-content active">
+                <h2>Unidad 1: Panorama General de la Administración Financiera</h2>
+                <div class="highlight-box">
+                    <strong>Definición:</strong> Fase de la administración general que busca maximizar el patrimonio de la empresa mediante la obtención y manejo correcto de recursos.
                 </div>
+                <h3>Diferencia entre Conceptos:</h3>
+                <ul>
+                    <li><strong>Finanzas:</strong> El arte y ciencia de administrar el dinero.</li>
+                    <li><strong>Contraloría:</strong> Se enfoca en la información, contabilidad, costos e impuestos (El pasado/presente).</li>
+                    <li><strong>Tesorería:</strong> Se enfoca en el manejo del efectivo, banca, financiamiento e inversiones (El futuro/flujo).</li>
+                </ul>
+                <p><strong>Ética Financiera:</strong> Es vital promover una conducta honesta y justa en la gestión de los recursos de terceros (accionistas).</p>
             </div>
-        </div>
 
-        <div class="accordion-section">
-            <button class="accordion-btn">
-                3. Capital de Trabajo
-                <span class="icon">+</span>
-            </button>
-            <div class="panel">
-                <div class="panel-content">
-                    <p>Se refiere a la administración de los activos y pasivos circulantes de la empresa.</p>
-                    <div class="highlight-box">
-                        <strong>Fórmula:</strong> Capital de Trabajo Neto = Activo Circulante - Pasivo Circulante.
-                    </div>
-                    <h3>Componentes Críticos:</h3>
-                    <ul>
-                        <li>Administración del Efectivo y Valores negociables.</li>
-                        <li>Gestión de Cuentas por Cobrar (Políticas de crédito).</li>
-                        <li>Control de Inventarios.</li>
-                    </ul>
+            <div id="tema2" class="tab-content">
+                <h2>Unidad 2: Análisis de Estados Financieros</h2>
+                <p>Técnica para diagnosticar la situación y perspectivas de la empresa mediante la descomposición de la información financiera.</p>
+                
+                <h3>Tipos de Análisis:</h3>
+                <ul>
+                    <li><strong>Vertical:</strong> Analiza la estructura en una fecha determinada (Ej. Porcientos Integrales).</li>
+                    <li><strong>Horizontal:</strong> Analiza los cambios a través del tiempo (Tendencias entre año 1 y año 2).</li>
+                </ul>
+
+                <h3>Razones Financieras Clave:</h3>
+                <p>Son índices que relacionan dos números contables:</p>
+                <ul>
+                    <li><strong>Liquidez:</strong> Capacidad de pago a corto plazo.</li>
+                    <li><strong>Actividad:</strong> Eficiencia en el uso de activos (rotación).</li>
+                    <li><strong>Deuda:</strong> Proporción de financiamiento externo.</li>
+                    <li><strong>Rentabilidad:</strong> Ganancia respecto a la inversión.</li>
+                </ul>
+            </div>
+
+            <div id="tema3" class="tab-content">
+                <h2>Unidad 3: Administración del Capital de Trabajo</h2>
+                <div class="highlight-box">
+                    <strong>Fórmula:</strong> Capital de Trabajo Neto = Activo Circulante - Pasivo Circulante.
                 </div>
+                <p>Representa la inversión de la empresa en activos a corto plazo necesarios para operar día a día.</p>
+                
+                <h3>Componentes Principales:</h3>
+                <ol>
+                    <li><strong>Efectivo:</strong> Dinero disponible para obligaciones inmediatas.</li>
+                    <li><strong>Cuentas por Cobrar:</strong> Gestión del crédito a clientes (políticas de cobro).</li>
+                    <li><strong>Inventarios:</strong> Materias primas, producción en proceso y producto terminado.</li>
+                </ol>
             </div>
-        </div>
 
-        <div class="accordion-section">
-            <button class="accordion-btn">
-                4. Planeación y Apalancamiento
-                <span class="icon">+</span>
-            </button>
-            <div class="panel">
-                <div class="panel-content">
-                    <h3>Planeación Financiera</h3>
-                    <p>Proyección de ventas, ingresos y activos tomando como base estrategias alternativas de producción y mercadotecnia.</p>
-                    <h3>Apalancamiento (Leverage)</h3>
-                    <p>Uso de costos fijos para magnificar los rendimientos:</p>
-                    <ul>
-                        <li><strong>Apalancamiento Operativo:</strong> Costos fijos de operación.</li>
-                        <li><strong>Apalancamiento Financiero:</strong> Costos fijos financieros (intereses de deuda).</li>
-                    </ul>
-                </div>
+            <div id="tema4" class="tab-content">
+                <h2>Unidad 4: Planeación Financiera y Apalancamiento</h2>
+                <p>La planeación proyecta las ventas, ingresos y activos tomando como base estrategias de producción y mercadotecnia.</p>
+
+                <h3>Punto de Equilibrio:</h3>
+                <p>Nivel de ventas donde los ingresos totales igualan a los costos totales (Utilidad = 0).</p>
+
+                <h3>Apalancamiento (Leverage):</h3>
+                <ul>
+                    <li><strong>Operativo:</strong> Uso de costos fijos de operación para potenciar utilidades antes de intereses e impuestos.</li>
+                    <li><strong>Financiero:</strong> Uso de deuda (intereses fijos) para potenciar las utilidades por acción.</li>
+                    <li><strong>Total:</strong> Combinación de ambos riesgos.</li>
+                </ul>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <script>
-        var acc = document.getElementsByClassName("accordion-btn");
-        var i;
+        function openTab(evt, tabName) {
+            // 1. Ocultar todos los contenidos
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                // 1. Cerrar todos los demás (Efecto Acordeón exclusivo)
-                var allPanels = document.getElementsByClassName("panel");
-                var allBtns = document.getElementsByClassName("accordion-btn");
-                
-                var currentPanel = this.nextElementSibling;
-                var isAlreadyActive = this.classList.contains("active");
+            // 2. Desactivar todos los botones
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
 
-                // Reseteamos todos
-                for (var j = 0; j < allBtns.length; j++) {
-                    allBtns[j].classList.remove("active");
-                    allBtns[j].querySelector(".icon").innerText = "+";
-                    allPanels[j].style.maxHeight = null;
-                }
-
-                // 2. Si no estaba activo, lo abrimos
-                if (!isAlreadyActive) {
-                    this.classList.add("active");
-                    this.querySelector(".icon").innerText = "×"; // Cambia icono a cerrar
-                    currentPanel.style.maxHeight = currentPanel.scrollHeight + "px";
-                }
-            });
+            // 3. Mostrar el actual
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
         }
     </script>
-
 </body>
 </html>
