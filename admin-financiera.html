@@ -8,21 +8,38 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
         :root {
-            /* NUEVA PALETA EXACTA (RGB 249, 231, 200 -> #F9E7C8) */
-            --brand-color: #F9E7C8;  /* Tu nuevo color exacto */
-            --brand-dark: #dccba8;   /* Una versión un poco más oscura para bordes */
-            --text-main: #2c2c2c;    
-            --bg-body: #fbfbf9;      /* Fondo casi blanco, muy cálido */
-            --active-bg: #444444;    
-            --active-text: #F9E7C8;  /* Texto del color de la marca */
+            /* --- NUEVA PALETA BASADA EN LA IMAGEN --- */
+            
+            /* 1. Color del Banner Superior (Mostaza/Dorado) */
+            --brand-gold: #d99019; 
+            
+            /* 2. Color del Logo UNIDES y el Círculo (Cian/Turquesa) */
+            --brand-teal: #009ba8; 
+            
+            /* 3. Color de Fondo General (Crema pálido) */
+            --bg-body-crema: #f8f6ed;
+
+            /* Colores neutros */
+            --text-dark: #2c2c2c;    /* Texto principal */
+            --text-white: #ffffff;   /* Texto sobre fondos oscuros */
+            --border-light: #e5e5e5; /* Separadores sutiles */
+
+            /* --- Asignación de roles --- */
+            --header-bg: var(--brand-gold);         /* El encabezado será dorado como el banner */
+            --header-text: var(--text-white);       /* Texto blanco en el encabezado */
+            
+            --acc-btn-color: var(--brand-teal);     /* Color de los iconos y números en estado inactivo */
+            
+            --active-bg: var(--brand-teal);         /* Al hacer clic, el botón se vuelve turquesa */
+            --active-text: var(--text-white);       /* Texto blanco al estar activo */
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-body);
+            background-color: var(--bg-body-crema); /* Fondo crema aplicado */
             margin: 0;
             padding: 20px;
-            color: var(--text-main);
+            color: var(--text-dark);
         }
 
         .container {
@@ -32,14 +49,16 @@
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             overflow: hidden;
-            border-top: 6px solid var(--brand-dark);
+            /* Borde superior turquesa para acento */
+            border-top: 6px solid var(--brand-teal); 
         }
 
         /* ENCABEZADO */
         .header {
-            background-color: var(--brand-color);
+            background-color: var(--header-bg); /* Fondo dorado */
             padding: 40px 30px;
-            border-bottom: 1px solid var(--brand-dark);
+            /* Quitamos el borde inferior para que se vea como un bloque sólido como en la imagen */
+            border-bottom: none; 
         }
 
         .header h1 {
@@ -48,19 +67,20 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #222;
+            color: var(--header-text); /* Texto blanco */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1); /* Sombra ligera para mejorar lectura */
         }
 
         .header h2 {
             margin: 5px 0 0 0;
             font-size: 16px;
             font-weight: 400;
-            color: #555;
+            color: rgba(255, 255, 255, 0.9); /* Blanco con ligera transparencia */
         }
 
         /* ACORDEÓN */
         .accordion-section {
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .accordion-btn {
@@ -71,7 +91,7 @@
             text-align: left;
             font-size: 17px;
             font-weight: 600;
-            color: var(--text-main);
+            color: var(--text-dark);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -81,23 +101,25 @@
         }
 
         .accordion-btn:hover {
-            background-color: #fffefb; /* Blanco muy cálido */
+            /* Un tono muy ligero de turquesa al pasar el mouse */
+            background-color: #f0fbff; 
             padding-left: 35px;
         }
 
         .accordion-btn.active {
-            background-color: var(--active-bg);
-            color: var(--active-text);
+            background-color: var(--active-bg); /* Fondo Turquesa al activarse */
+            color: var(--active-text); /* Texto blanco */
         }
 
         .icon {
             font-size: 20px;
-            color: var(--brand-dark);
+            color: var(--acc-btn-color); /* Icono turquesa por defecto */
             transition: transform 0.3s ease;
+            font-weight: 300;
         }
 
         .accordion-btn.active .icon {
-            color: var(--active-text);
+            color: var(--active-text); /* Icono blanco al activarse */
             transform: rotate(45deg);
         }
 
@@ -122,7 +144,7 @@
 
         li {
             padding: 8px 0;
-            border-bottom: 1px dashed #eee;
+            border-bottom: 1px dashed var(--border-light);
             color: #555;
             font-size: 15px;
             display: flex;
@@ -135,7 +157,8 @@
         /* Número del subtema en negrita */
         li span {
             font-weight: 600;
-            color: #b59f6d; /* Color dorado oscuro/ocre que combina con el nuevo beige */
+            /* Usamos el color Turquesa (UNIDES) para los números de subtema */
+            color: var(--brand-teal); 
             min-width: 40px;
             margin-right: 10px;
         }
