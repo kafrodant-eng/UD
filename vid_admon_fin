@@ -1,166 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos Multimedia - Administración Financiera</title>
-    <style>
-        /* ESTILOS GENERALES (No tocar a menos que quieras cambiar colores globales) */
-        :root {
-            --header-bg: #F59E6D; /* Color naranja/durazno similar a la imagen */
-            --header-text: #000000;
-            --card-bg: #ffffff;
-            --bg-body: #f4f4f4;
-        }
+<style>
+  /* Contenedor principal del banner */
+  .banner-container {
+    background-color: #FDF4E3; /* Fondo crema suave */
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: transparent; /* Transparente para que se mezcle en tu LMS */
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px; /* Espacio entre tarjetas */
-        }
+  /* Área de la ilustración (Círculo Izquierdo) */
+  .icon-area {
+    background-color: #2D7D8E; /* Verde Azulado */
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #EAE0D0; /* Borde claro simulando el sticker */
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
 
-        /* DISEÑO DE LA TARJETA (IMITACIÓN GENIALLY) */
-        .genially-card {
-            background-color: var(--card-bg);
-            width: 100%;
-            max-width: 800px; /* Ancho máximo similar al reproductor */
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
+  /* Simulación simple del ícono de dinero con CSS */
+  .money-icon {
+    font-size: 60px;
+    color: #F4C430; /* Amarillo Oro */
+    font-weight: bold;
+    text-shadow: 2px 2px 0px #00000033;
+  }
 
-        .genially-card:hover {
-            transform: translateY(-2px);
-        }
+  /* Contenedor derecho */
+  .content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 120px;
+  }
 
-        /* ENCABEZADO */
-        .card-header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 20px;
-            font-weight: 800; /* Letra gruesa como en la imagen */
-            font-size: 1.2rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+  /* Etiqueta Superior (Mostaza) */
+  .activity-label {
+    background-color: #D9901C; /* Mostaza/Dorado intenso */
+    color: white;
+    padding: 10px 25px;
+    border-radius: 20px 0px 0px 20px; /* Redondeado solo a la izquierda */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    margin-right: -20px; /* Pegado al borde derecho */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
 
-        /* CONTENEDOR DEL VIDEO (RESPONSIVE) */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            height: 0;
-            background-color: #000;
-        }
+  /* Logo inferior */
+  .logo-text {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 2em;
+    color: #009ADD; /* Azul Cyan */
+    margin-top: auto;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+  
+  .logo-sub {
+    font-size: 0.4em;
+    color: #D9901C;
+    display: block;
+    text-align: right;
+    margin-top: -5px;
+  }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* PIE DE PÁGINA (BRANDING FALSO) */
-        .card-footer {
-            padding: 10px 20px;
-            background-color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            border-top: 1px solid #eee;
-        }
-
-        .logo-placeholder {
-            width: 24px;
-            height: 24px;
-            background-color: #333; /* Simula el logo circular */
-            border-radius: 50%;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .footer-text {
-            font-size: 0.8rem;
-            color: #666;
-            font-weight: 600;
-        }
-
-    </style>
+</style>
 </head>
 <body>
 
-    <div class="genially-card">
-        <div class="card-header">
-            EVA: Valor Económico Agregado y Generación de Valor
-        </div>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allowfullscreen></iframe>
-        </div>
-
-        <div class="card-footer">
-            <div class="logo-placeholder">G</div>
-            <div class="footer-text">Recurso Interactivo</div>
-        </div>
+<div class="banner-container">
+  <div class="icon-area">
+    <div class="money-icon">$</div>
+  </div>
+  
+  <div class="content-area">
+    <div class="activity-label">VIDEOS DE LA SESIÓN</div>
+    
+    <div class="logo-text">
+      UNIDES
+      <span class="logo-sub">MÉXICO</span>
     </div>
-
-    <div class="genially-card">
-        <div class="card-header">
-            Concepto Clave: ¿Qué es el Apalancamiento Financiero?
-        </div>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/axF8URaTNuM" allowfullscreen></iframe>
-        </div>
-
-        <div class="card-footer">
-            <div class="logo-placeholder">G</div>
-            <div class="footer-text">Recurso Interactivo</div>
-        </div>
-    </div>
-
-    <div class="genially-card">
-        <div class="card-header">
-            Gestión Financiera: Administración de Efectivo
-        </div>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/NcZwNBGPx8E" allowfullscreen></iframe>
-        </div>
-
-        <div class="card-footer">
-            <div class="logo-placeholder">G</div>
-            <div class="footer-text">Recurso Interactivo</div>
-        </div>
-    </div>
-
-     <div class="genially-card">
-        <div class="card-header">
-            Fundamentos de Inversión: Riesgo y Rendimiento
-        </div>
-        
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/K99NDE8vqM8" allowfullscreen></iframe>
-        </div>
-
-        <div class="card-footer">
-            <div class="logo-placeholder">G</div>
-            <div class="footer-text">Recurso Interactivo</div>
-        </div>
-    </div>
+  </div>
+</div>
 
 </body>
 </html>
