@@ -29,8 +29,8 @@
 
         /* --- TEXTO DE INSTRUCCIÓN --- */
         .instruction-text {
-            width: 95%; /* Ocupa casi todo el ancho disponible */
-            max-width: 1100px; /* Límite para pantallas gigantes */
+            width: 95%;
+            max-width: 1100px; /* Ancho amplio */
             color: var(--text-instruction);
             font-size: 1.1rem;
             margin-top: 20px;
@@ -51,57 +51,17 @@
         .genially-card {
             background-color: var(--card-bg);
             width: 100%;
-            max-width: 1100px; /* AUMENTADO: Ahora es mucho más ancho */
+            max-width: 1100px; /* MANTENEMOS EL TAMAÑO GRANDE */
             border-radius: 12px;
-            overflow: hidden; /* Importante para bordes redondeados */
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
             border: 1px solid rgba(217, 144, 28, 0.1);
-            position: relative; 
         }
 
         .genially-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(217, 144, 28, 0.15);
-        }
-
-        /* --- MODO PANTALLA COMPLETA "NUCLEAR" --- */
-        /* Usamos !important para sobrescribir cualquier restricción de Moodle */
-        .genially-card.fullscreen-mode {
-            position: fixed !important; /* Fijo a la ventana del navegador */
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            width: 100vw !important; /* 100% del ancho de la ventana */
-            height: 100vh !important; /* 100% del alto de la ventana */
-            max-width: none !important;
-            max-height: none !important;
-            z-index: 2147483647 !important; /* El valor más alto permitido por los navegadores */
-            margin: 0 !important;
-            border-radius: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            background-color: #000 !important; /* Fondo negro por si acaso */
-        }
-        
-        /* Ajuste del contenedor de video en pantalla completa */
-        .genially-card.fullscreen-mode .video-container {
-            flex-grow: 1 !important; /* Ocupa todo el espacio disponible */
-            height: auto !important;
-            padding-bottom: 0 !important; /* Quitamos el ratio para que llene la pantalla */
-            background-color: #000;
-        }
-
-        /* Ajuste de encabezado y pie en pantalla completa */
-        .genially-card.fullscreen-mode .card-header {
-            padding: 15px 20px !important;
-            font-size: 1.2rem !important;
-            flex-shrink: 0; /* Evita que se encoja */
-        }
-        .genially-card.fullscreen-mode .card-footer {
-            padding: 10px 20px !important;
-            flex-shrink: 0;
         }
 
         /* --- ENCABEZADO --- */
@@ -120,37 +80,34 @@
         
         .header-title {
              flex-grow: 1;
-             text-align: center;
              margin-right: 10px;
         }
 
-        /* BOTÓN DE PANTALLA COMPLETA */
-        .fullscreen-btn {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 4px;
+        /* ENLACE EXTERNO (SOLUCIÓN SEGURA) */
+        .youtube-link {
+            background: rgba(0,0,0,0.1);
             color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            width: 35px;
-            height: 35px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.3);
+            white-space: nowrap;
+            transition: background 0.2s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-            line-height: 1;
-            padding-bottom: 3px; /* Ajuste visual del icono */
+            gap: 5px;
         }
         
-        .fullscreen-btn:hover {
-            background: rgba(0,0,0,0.4);
+        .youtube-link:hover {
+            background: rgba(0,0,0,0.3);
         }
 
         /* --- CONTENEDOR DEL VIDEO --- */
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Ratio 16:9 estándar */
+            padding-bottom: 56.25%; /* Ratio 16:9 estricto para evitar pantalla negra */
             height: 0;
             background-color: #000;
         }
@@ -204,13 +161,13 @@
         Revisa los siguientes videos para realizar la <strong>Actividad 02. Presentación electrónica “Análisis y planeación”</strong>
     </div>
 
-    <div class="genially-card" id="card-1">
+    <div class="genially-card">
         <div class="card-header">
             <span class="header-title">EVA: Valor Económico Agregado</span>
-            <button class="fullscreen-btn" onclick="toggleFullScreen('card-1')" title="Pantalla completa">⛶</button>
+            <a href="https://www.youtube.com/watch?v=ug33PRS7ODk" target="_blank" class="youtube-link" title="Abrir en nueva pestaña">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div> 
@@ -218,13 +175,13 @@
         </div>
     </div>
 
-    <div class="genially-card" id="card-2">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Fórmula del EVA</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-2')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=Om11l9Q4Ywo" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Om11l9Q4Ywo" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Om11l9Q4Ywo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -232,13 +189,13 @@
         </div>
     </div>
 
-    <div class="genially-card" id="card-3">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Calcular el EVA (Ejemplo en Excel)</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-3')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=s_ubNyBy6jk" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/s_ubNyBy6jk" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/s_ubNyBy6jk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -246,13 +203,13 @@
         </div>
     </div>
 
-    <div class="genially-card" id="card-4">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Diagnóstico Financiero</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-4')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=v6DmQZeXdk0" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/v6DmQZeXdk0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/v6DmQZeXdk0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -265,13 +222,13 @@
         Revisa el siguiente video para realizar la <strong>Actividad 03. Mapa conceptual “Apalancamiento”</strong>
     </div>
 
-    <div class="genially-card" id="card-5">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">¿Qué es el Apalancamiento Financiero?</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-5')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=axF8URaTNuM" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/axF8URaTNuM" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/axF8URaTNuM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -284,13 +241,13 @@
         Revisa el siguiente video para realizar la <strong>Actividad 04. Video “Administración de efectivo”</strong>
     </div>
 
-    <div class="genially-card" id="card-6">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Administración de Efectivo</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-6')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=NcZwNBGPx8E" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/NcZwNBGPx8E" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/NcZwNBGPx8E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -303,13 +260,13 @@
         Revisa los siguientes videos para realizar la <strong>Actividad 06. Infografía “Riesgo y rendimiento”</strong>
     </div>
 
-    <div class="genially-card" id="card-7">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Riesgo y Rendimiento</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-7')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=K99NDE8vqM8" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/K99NDE8vqM8" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/K99NDE8vqM8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
@@ -317,43 +274,19 @@
         </div>
     </div>
 
-    <div class="genially-card" id="card-8">
+    <div class="genially-card">
         <div class="card-header">
              <span class="header-title">Riesgo en la Inversión</span>
-             <button class="fullscreen-btn" onclick="toggleFullScreen('card-8')" title="Pantalla completa">⛶</button>
+             <a href="https://www.youtube.com/watch?v=62bC9MpLNx8" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/62bC9MpLNx8" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/62bC9MpLNx8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
             <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
-
-    <script>
-        function toggleFullScreen(cardId) {
-            const card = document.getElementById(cardId);
-            const btn = card.querySelector('.fullscreen-btn');
-            
-            // Alternar clase
-            const isFull = card.classList.toggle('fullscreen-mode');
-            
-            if (isFull) {
-                // CAMBIO A PANTALLA COMPLETA
-                btn.innerHTML = '✕'; 
-                btn.title = "Cerrar pantalla completa";
-                // Mover al cuerpo del documento para evitar trampas de CSS (opcional pero recomendado si falla lo anterior)
-                // document.body.appendChild(card); // Nota: Esto podría romper el orden, mejor confiemos en z-index
-            } else {
-                // SALIR DE PANTALLA COMPLETA
-                btn.innerHTML = '⛶';
-                btn.title = "Pantalla completa";
-                // Si el scroll se pierde, volver al elemento
-                setTimeout(() => card.scrollIntoView({behavior: "smooth", block: "center"}), 100);
-            }
-        }
-    </script>
 
 </body>
 </html>
