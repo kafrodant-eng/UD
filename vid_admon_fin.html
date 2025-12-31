@@ -20,26 +20,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-body); 
             margin: 0;
-            /* REDUJE EL PADDING para dar más espacio a las tarjetas */
             padding: 10px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px; 
+            gap: 30px; 
         }
 
         /* --- TEXTO DE INSTRUCCIÓN --- */
         .instruction-text {
-            width: 100%;
-            /* AUMENTÉ EL ANCHO MÁXIMO */
-            max-width: 900px; 
+            width: 95%; /* Ocupa casi todo el ancho disponible */
+            max-width: 1100px; /* Límite para pantallas gigantes */
             color: var(--text-instruction);
-            font-size: 1.05rem;
-            margin-top: 25px;
-            margin-bottom: 5px;
-            padding: 10px 15px;
-            border-left: 5px solid var(--accent-teal);
-            background-color: rgba(255,255,255,0.5); /* Fondo ligero para resaltar */
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 0px;
+            padding: 15px;
+            border-left: 6px solid var(--accent-teal);
+            background-color: rgba(255,255,255,0.6); 
             border-radius: 0 8px 8px 0;
             line-height: 1.4;
         }
@@ -53,14 +51,13 @@
         .genially-card {
             background-color: var(--card-bg);
             width: 100%;
-            /* AUMENTÉ EL ANCHO MÁXIMO para que los videos sean más grandes */
-            max-width: 900px; 
+            max-width: 1100px; /* AUMENTADO: Ahora es mucho más ancho */
             border-radius: 12px;
-            overflow: hidden;
+            overflow: hidden; /* Importante para bordes redondeados */
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            border: 1px solid rgba(217, 144, 28, 0.1); /* Borde sutil mostaza */
-            position: relative; /* Necesario para el botón de fullscreen */
+            border: 1px solid rgba(217, 144, 28, 0.1);
+            position: relative; 
         }
 
         .genially-card:hover {
@@ -68,69 +65,92 @@
             box-shadow: 0 12px 25px rgba(217, 144, 28, 0.15);
         }
 
-        /* CLASE PARA MODO PANTALLA COMPLETA (Se activa con JS) */
+        /* --- MODO PANTALLA COMPLETA "NUCLEAR" --- */
+        /* Usamos !important para sobrescribir cualquier restricción de Moodle */
         .genially-card.fullscreen-mode {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw !important;
-            height: 100vh !important;
+            position: fixed !important; /* Fijo a la ventana del navegador */
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important; /* 100% del ancho de la ventana */
+            height: 100vh !important; /* 100% del alto de la ventana */
             max-width: none !important;
-            z-index: 9999;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
+            max-height: none !important;
+            z-index: 2147483647 !important; /* El valor más alto permitido por los navegadores */
+            margin: 0 !important;
+            border-radius: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            background-color: #000 !important; /* Fondo negro por si acaso */
         }
         
-        /* Ajustar el video en modo fullscreen para que ocupe el espacio */
+        /* Ajuste del contenedor de video en pantalla completa */
         .genially-card.fullscreen-mode .video-container {
-            flex-grow: 1;
-            padding-bottom: 0; /* Anular el ratio para que llene el alto */
+            flex-grow: 1 !important; /* Ocupa todo el espacio disponible */
+            height: auto !important;
+            padding-bottom: 0 !important; /* Quitamos el ratio para que llene la pantalla */
+            background-color: #000;
+        }
+
+        /* Ajuste de encabezado y pie en pantalla completa */
+        .genially-card.fullscreen-mode .card-header {
+            padding: 15px 20px !important;
+            font-size: 1.2rem !important;
+            flex-shrink: 0; /* Evita que se encoja */
+        }
+        .genially-card.fullscreen-mode .card-footer {
+            padding: 10px 20px !important;
+            flex-shrink: 0;
         }
 
         /* --- ENCABEZADO --- */
         .card-header {
             background-color: var(--header-bg);
             color: var(--header-text);
-            /* REDUJE EL PADDING para ganar espacio */
-            padding: 12px 15px; 
+            padding: 12px 20px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             display: flex;
-            justify-content: space-between; /* Para separar texto y botón */
+            justify-content: space-between;
             align-items: center;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
-        /* Título del encabezado */
         .header-title {
              flex-grow: 1;
              text-align: center;
+             margin-right: 10px;
         }
 
-        /* BOTÓN DE PANTALLA COMPLETA PERSONALIZADO */
+        /* BOTÓN DE PANTALLA COMPLETA */
         .fullscreen-btn {
-            background: none;
-            border: none;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            padding: 5px;
-            margin-left: 10px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            line-height: 1;
+            padding-bottom: 3px; /* Ajuste visual del icono */
         }
         
         .fullscreen-btn:hover {
-            opacity: 1;
+            background: rgba(0,0,0,0.4);
         }
-
 
         /* --- CONTENEDOR DEL VIDEO --- */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            width: 100%;
+            padding-bottom: 56.25%; /* Ratio 16:9 estándar */
             height: 0;
             background-color: #000;
         }
@@ -146,8 +166,7 @@
 
         /* --- PIE DE PÁGINA --- */
         .card-footer {
-            /* REDUJE EL PADDING */
-            padding: 8px 15px;
+            padding: 10px 20px;
             background-color: #ffffff;
             display: flex;
             align-items: center;
@@ -156,22 +175,21 @@
         }
 
         .logo-placeholder {
-            width: 26px;
-            height: 26px;
+            width: 30px;
+            height: 30px;
             background-color: var(--accent-teal);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px; /* Tamaño para el icono de play */
+            font-size: 14px; 
             border: 2px solid #EAE0D0;
-            /* Pequeña sombra para darle volumen */
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .footer-text {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--accent-blue);
             font-weight: 800;
             text-transform: uppercase;
@@ -188,20 +206,21 @@
 
     <div class="genially-card" id="card-1">
         <div class="card-header">
-            <span class="header-title">EVA: Valor Económico Agregado y Generación de Valor</span>
+            <span class="header-title">EVA: Valor Económico Agregado</span>
             <button class="fullscreen-btn" onclick="toggleFullScreen('card-1')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">▶</div> <div class="footer-text">UNIDES MÉXICO</div>
+            <div class="logo-placeholder">▶</div> 
+            <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
 
     <div class="genially-card" id="card-2">
         <div class="card-header">
-             <span class="header-title">Fórmula del EVA: Valor Económico Agregado</span>
+             <span class="header-title">Fórmula del EVA</span>
              <button class="fullscreen-btn" onclick="toggleFullScreen('card-2')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
@@ -215,7 +234,7 @@
 
     <div class="genially-card" id="card-3">
         <div class="card-header">
-             <span class="header-title">Calcular el EVA de una empresa (Ejemplo en Excel)</span>
+             <span class="header-title">Calcular el EVA (Ejemplo en Excel)</span>
              <button class="fullscreen-btn" onclick="toggleFullScreen('card-3')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
@@ -229,7 +248,7 @@
 
     <div class="genially-card" id="card-4">
         <div class="card-header">
-             <span class="header-title">Diagnóstico Financiero de la Empresa</span>
+             <span class="header-title">Diagnóstico Financiero</span>
              <button class="fullscreen-btn" onclick="toggleFullScreen('card-4')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
@@ -267,7 +286,7 @@
 
     <div class="genially-card" id="card-6">
         <div class="card-header">
-             <span class="header-title">Administración Financiera: Administración de Efectivo</span>
+             <span class="header-title">Administración de Efectivo</span>
              <button class="fullscreen-btn" onclick="toggleFullScreen('card-6')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
@@ -281,7 +300,7 @@
 
 
     <div class="instruction-text">
-        Revisa los siguientes videos para realizar la <strong>Actividad 06. Infografía “Riesgo, rendimiento y valor temporal del dinero”</strong>
+        Revisa los siguientes videos para realizar la <strong>Actividad 06. Infografía “Riesgo y rendimiento”</strong>
     </div>
 
     <div class="genially-card" id="card-7">
@@ -315,19 +334,23 @@
     <script>
         function toggleFullScreen(cardId) {
             const card = document.getElementById(cardId);
-            // Alterna la clase 'fullscreen-mode' en la tarjeta seleccionada
-            card.classList.toggle('fullscreen-mode');
-            
-            // Opcional: Cambiar el ícono del botón al estar en pantalla completa
             const btn = card.querySelector('.fullscreen-btn');
-            if (card.classList.contains('fullscreen-mode')) {
-                btn.innerHTML = '✕'; // Ícono de cerrar
-                btn.title = "Salir de pantalla completa";
-                // Pequeño truco para forzar al navegador a desplazarse al inicio de la tarjeta expandida
-                card.scrollIntoView({behavior: "smooth", block: "start"});
+            
+            // Alternar clase
+            const isFull = card.classList.toggle('fullscreen-mode');
+            
+            if (isFull) {
+                // CAMBIO A PANTALLA COMPLETA
+                btn.innerHTML = '✕'; 
+                btn.title = "Cerrar pantalla completa";
+                // Mover al cuerpo del documento para evitar trampas de CSS (opcional pero recomendado si falla lo anterior)
+                // document.body.appendChild(card); // Nota: Esto podría romper el orden, mejor confiemos en z-index
             } else {
-                btn.innerHTML = '⛶'; // Ícono de expandir
+                // SALIR DE PANTALLA COMPLETA
+                btn.innerHTML = '⛶';
                 btn.title = "Pantalla completa";
+                // Si el scroll se pierde, volver al elemento
+                setTimeout(() => card.scrollIntoView({behavior: "smooth", block: "center"}), 100);
             }
         }
     </script>
