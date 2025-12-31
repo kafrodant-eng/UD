@@ -30,7 +30,7 @@
         /* --- TEXTO DE INSTRUCCIÓN --- */
         .instruction-text {
             width: 95%;
-            max-width: 1100px; /* Ancho amplio */
+            max-width: 1100px; 
             color: var(--text-instruction);
             font-size: 1.1rem;
             margin-top: 20px;
@@ -51,7 +51,7 @@
         .genially-card {
             background-color: var(--card-bg);
             width: 100%;
-            max-width: 1100px; /* MANTENEMOS EL TAMAÑO GRANDE */
+            max-width: 1100px; /* Ancho amplio para buena visualización */
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -80,34 +80,35 @@
         
         .header-title {
              flex-grow: 1;
-             margin-right: 10px;
+             margin-right: 15px;
         }
 
-        /* ENLACE EXTERNO (SOLUCIÓN SEGURA) */
+        /* --- BOTÓN "VER EN YOUTUBE" --- */
         .youtube-link {
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.15);
             color: white;
             text-decoration: none;
-            font-size: 0.8rem;
-            padding: 5px 10px;
+            font-size: 0.85rem;
+            padding: 6px 12px;
             border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
             white-space: nowrap;
-            transition: background 0.2s;
-            display: flex;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
             align-items: center;
-            gap: 5px;
+            font-weight: 600;
         }
         
         .youtube-link:hover {
             background: rgba(0,0,0,0.3);
+            transform: scale(1.02);
         }
 
         /* --- CONTENEDOR DEL VIDEO --- */
         .video-container {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Ratio 16:9 estricto para evitar pantalla negra */
+            padding-bottom: 56.25%; /* Ratio 16:9 */
             height: 0;
             background-color: #000;
         }
@@ -164,7 +165,7 @@
     <div class="genially-card">
         <div class="card-header">
             <span class="header-title">EVA: Valor Económico Agregado</span>
-            <a href="https://www.youtube.com/watch?v=ug33PRS7ODk" target="_blank" class="youtube-link" title="Abrir en nueva pestaña">Ver en YouTube ↗</a>
+            <a href="https://www.youtube.com/watch?v=ug33PRS7ODk" target="_blank" class="youtube-link">Ver en YouTube ↗</a>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
