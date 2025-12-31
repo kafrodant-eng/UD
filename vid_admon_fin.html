@@ -5,80 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursos Multimedia - Administración Financiera</title>
     <style>
-        /* ESTILOS GENERALES */
+        /* --- ESTILOS GENERALES --- */
         :root {
-            /* PALETA DE COLORES */
             --bg-body: #FDF4E3;      /* Crema */
             --header-bg: #D9901C;    /* Mostaza */
             --header-text: #ffffff;
             --card-bg: #ffffff;
             --accent-teal: #2D7D8E;  /* Verde Azulado */
             --accent-blue: #009ADD;  /* Azul UNIDES */
-            --text-instruction: #444444; /* Gris oscuro para las instrucciones */
+            --text-instruction: #333333;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-body); 
             margin: 0;
-            padding: 20px;
+            /* REDUJE EL PADDING para dar más espacio a las tarjetas */
+            padding: 10px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; 
+            gap: 25px; 
         }
 
-        /* ESTILO PARA EL TEXTO DE INSTRUCCIÓN (Nuevo) */
+        /* --- TEXTO DE INSTRUCCIÓN --- */
         .instruction-text {
             width: 100%;
-            max-width: 800px;
+            /* AUMENTÉ EL ANCHO MÁXIMO */
+            max-width: 900px; 
             color: var(--text-instruction);
-            font-size: 1rem;
-            margin-top: 30px; /* Separación entre bloques de actividad */
-            margin-bottom: 10px;
-            padding-left: 5px;
-            border-left: 4px solid var(--accent-teal); /* Pequeña línea decorativa a la izquierda */
-            line-height: 1.5;
+            font-size: 1.05rem;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            padding: 10px 15px;
+            border-left: 5px solid var(--accent-teal);
+            background-color: rgba(255,255,255,0.5); /* Fondo ligero para resaltar */
+            border-radius: 0 8px 8px 0;
+            line-height: 1.4;
         }
         
-        /* Negritas dentro de la instrucción */
         .instruction-text strong {
             color: #000;
             font-weight: 700;
         }
 
-        /* DISEÑO DE LA TARJETA */
+        /* --- DISEÑO DE LA TARJETA --- */
         .genially-card {
             background-color: var(--card-bg);
             width: 100%;
-            max-width: 800px;
-            border-radius: 15px;
+            /* AUMENTÉ EL ANCHO MÁXIMO para que los videos sean más grandes */
+            max-width: 900px; 
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
-            border: 1px solid #EAE0D0;
-            margin-bottom: 20px; /* Espacio entre tarjetas de la misma actividad */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(217, 144, 28, 0.1); /* Borde sutil mostaza */
+            position: relative; /* Necesario para el botón de fullscreen */
         }
 
         .genially-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(217, 144, 28, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(217, 144, 28, 0.15);
         }
 
-        /* ENCABEZADO */
+        /* CLASE PARA MODO PANTALLA COMPLETA (Se activa con JS) */
+        .genially-card.fullscreen-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            z-index: 9999;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Ajustar el video en modo fullscreen para que ocupe el espacio */
+        .genially-card.fullscreen-mode .video-container {
+            flex-grow: 1;
+            padding-bottom: 0; /* Anular el ratio para que llene el alto */
+        }
+
+        /* --- ENCABEZADO --- */
         .card-header {
             background-color: var(--header-bg);
             color: var(--header-text);
-            padding: 15px 20px;
+            /* REDUJE EL PADDING para ganar espacio */
+            padding: 12px 15px; 
             font-weight: 700;
             font-size: 1.1rem;
-            text-align: center;
+            display: flex;
+            justify-content: space-between; /* Para separar texto y botón */
+            align-items: center;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            line-height: 1.3;
+        }
+        
+        /* Título del encabezado */
+        .header-title {
+             flex-grow: 1;
+             text-align: center;
         }
 
-        /* CONTENEDOR DEL VIDEO (RESPONSIVE) */
+        /* BOTÓN DE PANTALLA COMPLETA PERSONALIZADO */
+        .fullscreen-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 10px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .fullscreen-btn:hover {
+            opacity: 1;
+        }
+
+
+        /* --- CONTENEDOR DEL VIDEO --- */
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* Ratio 16:9 */
@@ -95,35 +144,38 @@
             border: none;
         }
 
-        /* PIE DE PÁGINA */
+        /* --- PIE DE PÁGINA --- */
         .card-footer {
-            padding: 10px 20px;
+            /* REDUJE EL PADDING */
+            padding: 8px 15px;
             background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-top: 2px solid var(--bg-body);
+            border-top: 1px solid #f0f0f0;
         }
 
         .logo-placeholder {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             background-color: var(--accent-teal);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 14px; /* Tamaño para el icono de play */
             border: 2px solid #EAE0D0;
+            /* Pequeña sombra para darle volumen */
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .footer-text {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--accent-blue);
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
     </style>
@@ -134,54 +186,57 @@
         Revisa los siguientes videos para realizar la <strong>Actividad 02. Presentación electrónica “Análisis y planeación”</strong>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-1">
         <div class="card-header">
-            EVA: Valor Económico Agregado y Generación de Valor
+            <span class="header-title">EVA: Valor Económico Agregado y Generación de Valor</span>
+            <button class="fullscreen-btn" onclick="toggleFullScreen('card-1')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/ug33PRS7ODk" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
-            <div class="footer-text">UNIDES MÉXICO</div>
+            <div class="logo-placeholder">▶</div> <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-2">
         <div class="card-header">
-            Fórmula del EVA: Valor Económico Agregado
+             <span class="header-title">Fórmula del EVA: Valor Económico Agregado</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-2')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/Om11l9Q4Ywo" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-3">
         <div class="card-header">
-            Calcular el EVA de una empresa (Ejemplo en Excel)
+             <span class="header-title">Calcular el EVA de una empresa (Ejemplo en Excel)</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-3')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/s_ubNyBy6jk" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-4">
         <div class="card-header">
-            Diagnóstico Financiero de la Empresa
+             <span class="header-title">Diagnóstico Financiero de la Empresa</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-4')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/v6DmQZeXdk0" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
@@ -191,15 +246,16 @@
         Revisa el siguiente video para realizar la <strong>Actividad 03. Mapa conceptual “Apalancamiento”</strong>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-5">
         <div class="card-header">
-            ¿Qué es el Apalancamiento Financiero?
+             <span class="header-title">¿Qué es el Apalancamiento Financiero?</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-5')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/axF8URaTNuM" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
@@ -209,15 +265,16 @@
         Revisa el siguiente video para realizar la <strong>Actividad 04. Video “Administración de efectivo”</strong>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-6">
         <div class="card-header">
-            Administración Financiera: Administración de Efectivo
+             <span class="header-title">Administración Financiera: Administración de Efectivo</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-6')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/NcZwNBGPx8E" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
@@ -227,31 +284,53 @@
         Revisa los siguientes videos para realizar la <strong>Actividad 06. Infografía “Riesgo, rendimiento y valor temporal del dinero”</strong>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-7">
         <div class="card-header">
-            Riesgo y Rendimiento
+             <span class="header-title">Riesgo y Rendimiento</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-7')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/K99NDE8vqM8" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
 
-    <div class="genially-card">
+    <div class="genially-card" id="card-8">
         <div class="card-header">
-            Riesgo en la Inversión
+             <span class="header-title">Riesgo en la Inversión</span>
+             <button class="fullscreen-btn" onclick="toggleFullScreen('card-8')" title="Pantalla completa">⛶</button>
         </div>
         <div class="video-container">
             <iframe src="https://www.youtube.com/embed/62bC9MpLNx8" allowfullscreen></iframe>
         </div>
         <div class="card-footer">
-            <div class="logo-placeholder">$</div>
+            <div class="logo-placeholder">▶</div>
             <div class="footer-text">UNIDES MÉXICO</div>
         </div>
     </div>
+
+    <script>
+        function toggleFullScreen(cardId) {
+            const card = document.getElementById(cardId);
+            // Alterna la clase 'fullscreen-mode' en la tarjeta seleccionada
+            card.classList.toggle('fullscreen-mode');
+            
+            // Opcional: Cambiar el ícono del botón al estar en pantalla completa
+            const btn = card.querySelector('.fullscreen-btn');
+            if (card.classList.contains('fullscreen-mode')) {
+                btn.innerHTML = '✕'; // Ícono de cerrar
+                btn.title = "Salir de pantalla completa";
+                // Pequeño truco para forzar al navegador a desplazarse al inicio de la tarjeta expandida
+                card.scrollIntoView({behavior: "smooth", block: "start"});
+            } else {
+                btn.innerHTML = '⛶'; // Ícono de expandir
+                btn.title = "Pantalla completa";
+            }
+        }
+    </script>
 
 </body>
 </html>
